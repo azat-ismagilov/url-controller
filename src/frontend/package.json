@@ -1,0 +1,12 @@
+{
+  "name": "icpc-live-v3",
+  "version": "3.1.0",
+  "private": true,
+  "scripts": {
+    "buildAdmin": "npm run build -w admin",
+    "lint": "npm run lint -w admin"
+  },
+  "workspaces": [
+    "admin"
+  ]
+}

@@ -1,0 +1,51 @@
+[versions]
+ktor = "2.3.3"                     # https://ktor.io/
+serialization = "1.5.1"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "1.9.0"
+logback = "1.4.8"                  # https://logback.qos.ch/download.html
+node-plugin = "5.0.0"              # https://github.com/node-gradle/gradle-node-plugin
+coroutines = "1.7.3"               # https://github.com/Kotlin/kotlinx.coroutines/
+shadow-plugin = "8.1.1"            # https://github.com/johnrengelman/shadow
+immutable = "0.3.5"                # https://github.com/Kotlin/kotlinx.collections.immutable
+
+[libraries]
+
+ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
+ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
+ktor-client-websockets = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-websockets" }
+ktor-client-logging    = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-logging" }
+
+ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+
+ktor-server-tests = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
+ktor-server-autoHeadResponse    = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auto-head-response" }
+ktor-server-auth                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auth" }
+ktor-server-callLogging         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-call-logging" }
+ktor-server-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-content-negotiation" }
+ktor-server-core                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-core" }
+ktor-server-cors                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-cors" }
+ktor-server-defaultHeaders      = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-default-headers" }
+ktor-server-netty               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-netty" }
+ktor-server-statusPages         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-status-pages" }
+ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
+
+
+kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
+kotlinx-serialization-properties = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-properties" }
+kotlinx-coroutines-core    = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
+kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
+
+
+kotlin-serialization-plugin = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-serialization" }
+kotlin-gradle-plugin        = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin" }
+kotlin-junit                = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit" }
+
+logback = { version.ref = "logback", group = "ch.qos.logback", name = "logback-classic" }
+
+[plugins]
+
+ktor = { id = "io.ktor.plugin",  version.ref = "ktor" }
+node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow-plugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
