@@ -5,10 +5,10 @@ import axios from "axios";
 import { BASE_URL_BACKEND } from "../config";
 import logger from "../logger";
 
-import { useAppContext } from "./AppContext";
+import ClientPresets from "./Clients/ClientPresets";
 import Clients from "./Clients/Clients";
 import ContentPresets from "./Contents/ContentPresets";
-import ClientPresets from "./Clients/ClientPresets";
+import { useAppContext } from "./AppContext";
 
 const Body = () => {
     const { selectedClientsIds } = useAppContext();
