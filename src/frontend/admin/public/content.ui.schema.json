@@ -1,0 +1,33 @@
+{
+  "type": {
+    "ui:widget": "hidden"
+  },
+  "durationSeconds": {
+    
+  },
+  "substitutions": {
+    "ui:options": {
+      "orderable": false
+    },
+    "items": {
+      "ui:options": {
+        "label": false
+      }
+    }
+  },
+  "sequence": {
+    "ui:options": {
+      "label": false
+    },
+    "items": {
+      "ui:options": {
+        "label": false
+      },
+      "content": {
+        "type": {
+          "ui:widget": "hidden"
+        }
+      }
+    }
+  }
+}
