@@ -1,6 +1,5 @@
 package org.icpclive.admin
 
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -13,8 +12,12 @@ import org.icpclive.data.ConnectionManager
 import org.icpclive.utils.defaultJsonSettings
 
 fun Route.configureAdminRouting() {
-    route("/presets") {
-        configurePresetsRouting()
+    route("/client-presets") {
+        configurePresetsRouting<ClientPreset>()
+    }
+
+    route("/content-presets") {
+        configurePresetsRouting<ContentPreset>()
     }
 
     post("/send") {

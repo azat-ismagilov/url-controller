@@ -6,8 +6,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-fun Route.configurePresetsRouting() {
-    val presetStorage = mutableListOf<Preset>()
+inline fun <reified PresetType : Preset> Route.configurePresetsRouting() {
+    val presetStorage = mutableListOf<PresetType>()
     get {
         call.respond(presetStorage)
     }
@@ -23,7 +23,7 @@ fun Route.configurePresetsRouting() {
         call.respond(preset)
     }
     post {
-        val preset = call.receive<Preset>()
+        val preset = call.receive<PresetType>()
         presetStorage.add(preset)
         call.respond(HttpStatusCode.Created)
     }
@@ -32,7 +32,7 @@ fun Route.configurePresetsRouting() {
             "Missing id",
             status = HttpStatusCode.BadRequest
         )
-        val preset = call.receive<Preset>()
+        val preset = call.receive<PresetType>()
         val index = presetStorage.indexOfFirst { it.id == id }
         if (index == -1) {
             presetStorage.add(preset)
