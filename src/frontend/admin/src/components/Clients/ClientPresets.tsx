@@ -10,10 +10,17 @@ import ClientPreset from "./ClientPreset";
 import { ClientPresetType } from "./types";
 
 const ClientPresets = () => {
+    const PRESETS_URL = BASE_URL_BACKEND + "/api/admin/client-presets";
+
+    const DEFAULT_PRESET = {
+        name: "Preset",
+        clientIds: [],
+    };
+
     const [presets, setPresets] = useState<ClientPresetType[]>([]);
 
     function updatePresets() {
-        axios.get(BASE_URL_BACKEND + "/api/admin/presets")
+        axios.get(PRESETS_URL)
             .then((response) => {
                 setPresets(response.data);
             }).catch((error) => {
@@ -28,10 +35,7 @@ const ClientPresets = () => {
 
     function addNewPreset() {
         // Add new preset
-        axios.post(BASE_URL_BACKEND + "/api/admin/presets", {
-            name: "Preset",
-            clientIds: [],
-        }).then((response) => {
+        axios.post(PRESETS_URL, DEFAULT_PRESET).then((response) => {
             logger.success(response, "New preset added");
         }).catch((error) => {
             logger.error(error, "Error adding new preset");
@@ -43,7 +47,7 @@ const ClientPresets = () => {
 
     function changePreset(id: string, preset: ClientPresetType) {
         // Change preset
-        axios.put(BASE_URL_BACKEND + "/api/admin/presets/" + id, preset)
+        axios.put(PRESETS_URL + `/${id}`, preset)
             .then((response) => {
                 logger.success(response, "Preset changed");
             }).catch((error) => {
@@ -56,7 +60,7 @@ const ClientPresets = () => {
 
     function deletePreset(id: string) {
         // Delete preset
-        axios.delete(BASE_URL_BACKEND + "/api/admin/presets/" + id)
+        axios.delete(PRESETS_URL + `/${id}`)
             .then((response) => {
                 logger.success(response, "Preset deleted");
             }).catch((error) => {
