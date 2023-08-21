@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { Button, Container, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 
 import { BASE_URL_BACKEND } from "../config";
+import logger from "../logger";
 
 import { useAppContext } from "./AppContext";
 import Clients from "./Clients";
+import ContentPresets from "./ContentPresets";
 import Presets from "./Presets";
 
 const Body = () => {
@@ -20,11 +21,9 @@ const Body = () => {
             url,
             clientIds: selectedClientsIds,
         }).then((response) => {
-            console.log(response);
-            enqueueSnackbar("URL is changed", { variant: "success" });
+            logger.log(response, "URL is changed");
         }).catch((error) => {
-            console.error(error);
-            enqueueSnackbar("Error sending request", { variant: "error" });
+            logger.error(error, "Error sending request");
         });
     };
 
@@ -34,16 +33,7 @@ const Body = () => {
                 <Typography variant="h4">
                     Control panel
                 </Typography>
-                <TextField
-                    label="URL"
-                    variant="standard"
-                    fullWidth
-                    value={url}
-                    onChange={(event) => {
-                        setUrl(event.target.value);
-                    }}
-                />
-
+                <ContentPresets />
                 <Clients />
                 <Presets />
                 <Button

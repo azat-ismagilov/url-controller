@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { IconButton, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 
 import { BASE_URL_BACKEND } from "../config";
+import logger from "../logger";
 
 import Preset from "./Preset";
 import { PresetType } from "./types";
@@ -17,8 +17,7 @@ const Presets = () => {
             .then((response) => {
                 setPresets(response.data);
             }).catch((error) => {
-                console.error(error);
-                enqueueSnackbar("Error getting presets", { variant: "error" });
+                logger.error(error, "Error loading presets");
             });
     }
 
@@ -33,10 +32,9 @@ const Presets = () => {
             name: "Preset",
             clientIds: [],
         }).then((response) => {
-            console.log(response);
+            logger.success(response, "New preset added");
         }).catch((error) => {
-            console.error(error);
-            enqueueSnackbar("Error adding preset", { variant: "error" });
+            logger.error(error, "Error adding new preset");
         });
 
         // Wait for server to update
@@ -47,10 +45,9 @@ const Presets = () => {
         // Change preset
         axios.put(BASE_URL_BACKEND + "/api/admin/presets/" + id, preset)
             .then((response) => {
-                console.log(response);
+                logger.success(response, "Preset changed");
             }).catch((error) => {
-                console.error(error);
-                enqueueSnackbar("Error changing preset", { variant: "error" });
+                logger.error(error, "Error changing preset");
             });
 
         // Wait for server to update
@@ -61,10 +58,9 @@ const Presets = () => {
         // Delete preset
         axios.delete(BASE_URL_BACKEND + "/api/admin/presets/" + id)
             .then((response) => {
-                console.log(response);
+                logger.success(response, "Preset deleted");
             }).catch((error) => {
-                console.error(error);
-                enqueueSnackbar("Error deleting preset", { variant: "error" });
+                logger.error(error, "Error deleting preset");
             });
 
         // Wait for server to update

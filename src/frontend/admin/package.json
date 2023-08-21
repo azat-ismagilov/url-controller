@@ -14,7 +14,11 @@
     "react-dom": "latest",
     "react-scripts": "latest",
     "react-use-websocket": "latest",
-    "notistack": "latest"
+    "notistack": "latest",
+    "@rjsf/core": "latest",
+    "@rjsf/utils": "latest",
+    "@rjsf/mui": "latest",
+    "@rjsf/validator-ajv8": "latest"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "latest",
