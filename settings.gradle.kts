@@ -11,7 +11,7 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":frontend", ":backend", ":schema-generator")
+include(":frontend", ":backend", ":generator")
 project(":frontend").projectDir = file("src/frontend")
 project(":backend").projectDir = file("src/backend")
-project(":schema-generator").projectDir = file("src/schema-generator")
+project(":generator").projectDir = file("src/generator")
