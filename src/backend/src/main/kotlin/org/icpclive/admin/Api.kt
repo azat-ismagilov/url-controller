@@ -10,14 +10,15 @@ import kotlinx.coroutines.async
 import kotlinx.serialization.encodeToString
 import org.icpclive.data.ConnectionManager
 import org.icpclive.utils.defaultJsonSettings
+import kotlin.io.path.Path
 
 fun Route.configureAdminRouting() {
     route("/client-presets") {
-        configurePresetsRouting<ClientPreset>()
+        configurePresetsRouting<ClientPreset>(Path("./client-presets.json"))
     }
 
     route("/content-presets") {
-        configurePresetsRouting<ContentPreset>()
+        configurePresetsRouting<ContentPreset>(Path("./content-presets.json"))
     }
 
     post("/send") {

@@ -14,4 +14,15 @@ fun defaultJsonSettings() = Json {
     explicitNulls = false
 }
 
+@OptIn(ExperimentalSerializationApi::class)
+fun prettyJsonSettings() = Json {
+    encodeDefaults = true
+    isLenient = true
+    allowSpecialFloatingPointValues = true
+    allowStructuredMapKeys = true
+    prettyPrint = true
+    useArrayPolymorphism = false
+    explicitNulls = false
+}
+
 fun generateUUID() = java.util.UUID.randomUUID().toString()
