@@ -1,0 +1,274 @@
+{
+    "$ref": "#/$defs/Content",
+    "$defs": {
+        "kotlin.String": {
+            "type": "string"
+        },
+        "kotlin.Int?": {
+            "type": "number"
+        },
+        "IFrame": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "IFrame",
+                    "default": "IFrame"
+                },
+                "url": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "IFrame"
+        },
+        "Image": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Image",
+                    "default": "Image"
+                },
+                "url": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Image"
+        },
+        "ImageFolder": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "ImageFolder",
+                    "default": "ImageFolder"
+                },
+                "url": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "ImageFolder"
+        },
+        "Substitution<kotlin.String,kotlin.String>": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "to": {
+                    "$ref": "#/$defs/kotlin.String"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "from",
+                "to"
+            ]
+        },
+        "kotlin.collections.ArrayList<Substitution>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/Substitution<kotlin.String,kotlin.String>"
+            }
+        },
+        "SmartSVG": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "SmartSVG",
+                    "default": "SmartSVG"
+                },
+                "url": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "substitutions": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<Substitution>"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "substitutions"
+            ],
+            "title": "SmartSVG"
+        },
+        "Text": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Text",
+                    "default": "Text"
+                },
+                "text": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "text"
+            ],
+            "title": "Text"
+        },
+        "Video": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Video",
+                    "default": "Video"
+                },
+                "url": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Video"
+        },
+        "VideoFolder": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "VideoFolder",
+                    "default": "VideoFolder"
+                },
+                "path": {
+                    "$ref": "#/$defs/kotlin.String"
+                },
+                "durationSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "path"
+            ],
+            "title": "VideoFolder"
+        },
+        "SimpleContent<kotlin.String,kotlinx.serialization.Sealed<SimpleContent>>": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/IFrame"
+                },
+                {
+                    "$ref": "#/$defs/Image"
+                },
+                {
+                    "$ref": "#/$defs/ImageFolder"
+                },
+                {
+                    "$ref": "#/$defs/SmartSVG"
+                },
+                {
+                    "$ref": "#/$defs/Text"
+                },
+                {
+                    "$ref": "#/$defs/Video"
+                },
+                {
+                    "$ref": "#/$defs/VideoFolder"
+                }
+            ]
+        },
+        "SequenceEntry<SimpleContent>": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "$ref": "#/$defs/SimpleContent<kotlin.String,kotlinx.serialization.Sealed<SimpleContent>>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "content"
+            ]
+        },
+        "kotlin.collections.ArrayList<SequenceEntry>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/SequenceEntry<SimpleContent>"
+            }
+        },
+        "Sequence": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Sequence",
+                    "default": "Sequence"
+                },
+                "sequence": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<SequenceEntry>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "sequence"
+            ],
+            "title": "Sequence"
+        },
+        "Content": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/IFrame"
+                },
+                {
+                    "$ref": "#/$defs/Image"
+                },
+                {
+                    "$ref": "#/$defs/ImageFolder"
+                },
+                {
+                    "$ref": "#/$defs/Sequence"
+                },
+                {
+                    "$ref": "#/$defs/SmartSVG"
+                },
+                {
+                    "$ref": "#/$defs/Text"
+                },
+                {
+                    "$ref": "#/$defs/Video"
+                },
+                {
+                    "$ref": "#/$defs/VideoFolder"
+                }
+            ],
+            "title": "Content"
+        }
+    }
+}
