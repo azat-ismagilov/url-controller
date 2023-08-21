@@ -6,9 +6,9 @@ import { BASE_URL_BACKEND } from "../config";
 import logger from "../logger";
 
 import { useAppContext } from "./AppContext";
-import Clients from "./Clients";
-import ContentPresets from "./ContentPresets";
-import Presets from "./Presets";
+import Clients from "./Clients/Clients";
+import ContentPresets from "./Contents/ContentPresets";
+import ClientPresets from "./Clients/ClientPresets";
 
 const Body = () => {
     const { selectedClientsIds } = useAppContext();
@@ -35,7 +35,7 @@ const Body = () => {
                 </Typography>
                 <ContentPresets />
                 <Clients />
-                <Presets />
+                <ClientPresets />
                 <Button
                     variant="contained"
                     disabled={selectedClientsIds.length == 0 || url === undefined}

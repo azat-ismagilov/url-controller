@@ -3,7 +3,7 @@ import useWebSocket from "react-use-websocket";
 
 import { BASE_URL_WS, WEBSOCKET_CONFIG } from "../config";
 
-import { ClientParams } from "./types";
+import { ClientParams } from "./Clients/types";
 
 type AppContextType = {
   clients: ClientParams[];

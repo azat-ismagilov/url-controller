@@ -3,15 +3,17 @@ import { Delete, Save } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
 
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
 import MultipleCheckboxController from "./MultipleCheckboxController";
-import { PresetType } from "./types";
+import { ClientPresetType } from "./types";
 
-const Preset = ({ preset, changePreset, deletePreset }: { 
-    preset: PresetType, 
-    changePreset: (arg0: string, arg1: PresetType) => void, 
-    deletePreset: (arg0: string) => void 
-}) => {
+type ClientPresetProps = {
+    preset: ClientPresetType,
+    changePreset: (arg0: string, arg1: ClientPresetType) => void,
+    deletePreset: (arg0: string) => void
+};
+
+const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps) => {
     const [edit, setEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>(preset.name);
     const [clientIds, setClientIds] = useState<string[]>(preset.clientIds);
@@ -69,4 +71,4 @@ const Preset = ({ preset, changePreset, deletePreset }: {
     }
 };
 
-export default Preset;  
+export default ClientPreset;

@@ -3,14 +3,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { IconButton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 
-import { BASE_URL_BACKEND } from "../config";
-import logger from "../logger";
+import { BASE_URL_BACKEND } from "../../config";
+import logger from "../../logger";
 
-import Preset from "./Preset";
-import { PresetType } from "./types";
+import ClientPreset from "./ClientPreset";
+import { ClientPresetType } from "./types";
 
-const Presets = () => {
-    const [presets, setPresets] = useState<PresetType[]>([]);
+const ClientPresets = () => {
+    const [presets, setPresets] = useState<ClientPresetType[]>([]);
 
     function updatePresets() {
         axios.get(BASE_URL_BACKEND + "/api/admin/presets")
@@ -41,7 +41,7 @@ const Presets = () => {
         setTimeout(() => updatePresets(), 200);
     }
 
-    function changePreset(id: string, preset: PresetType) {
+    function changePreset(id: string, preset: ClientPresetType) {
         // Change preset
         axios.put(BASE_URL_BACKEND + "/api/admin/presets/" + id, preset)
             .then((response) => {
@@ -78,10 +78,10 @@ const Presets = () => {
                 </IconButton>
             </Stack>
             {presets.map((preset) => (
-                <Preset key={preset.id} preset={preset} changePreset={changePreset} deletePreset={deletePreset}/>
+                <ClientPreset key={preset.id} preset={preset} changePreset={changePreset} deletePreset={deletePreset}/>
             ))}
         </Stack>
     );
 };
 
-export default Presets;
+export default ClientPresets;

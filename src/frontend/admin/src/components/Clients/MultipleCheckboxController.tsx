@@ -1,6 +1,6 @@
 import { Checkbox,FormControlLabel } from "@mui/material";
 
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
 
 type MultipleCheckboxControllerProps = {
     label: string;

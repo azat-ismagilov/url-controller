@@ -5,7 +5,7 @@ import { RegistryFieldsType, RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 import axios from "axios";
 
-import logger from "../logger";
+import logger from "../../logger";
 
 const JsonEditor = ({ name, submitUrl }: { name: string, submitUrl: string }) => {
     const [schema, setSchema] = useState<RJSFSchema | undefined>();

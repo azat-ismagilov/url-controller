@@ -4,12 +4,7 @@ export type ClientParams = {
     id: string;
 };
 
-export type ClientGroup = {
-    name: string;
-    clients: ClientParams[];
-};
-
-export type PresetType = {
+export type ClientPresetType = {
     id: string;
     name: string;
     clientIds: string[];

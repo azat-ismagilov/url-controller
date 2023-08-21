@@ -1,6 +1,6 @@
 import { Box, Checkbox,FormControlLabel, FormGroup } from "@mui/material";
 
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
 import MultipleCheckboxController from "./MultipleCheckboxController";
 import { ClientParams } from "./types";
 
