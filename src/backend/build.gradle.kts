@@ -68,7 +68,8 @@ repositories {
 
 
 dependencies {
-    implementation(libs.logback)
+    implementation(libs.logback.classic)
+    implementation(libs.logback.core)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.autoHeadResponse)
     implementation(libs.ktor.server.auth)
