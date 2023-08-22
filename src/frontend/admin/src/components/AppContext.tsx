@@ -8,9 +8,11 @@ import { ClientParams } from "./Clients/types";
 type AppContextType = {
   clients: ClientParams[];
   selectedClientsIds: string[];
-  isSelected: (id: string) => boolean;
-  setSelected: (id: string, value: boolean) => void;
-  setSelectedMultiple: (ids: string[], value: boolean) => void;
+  isSelectedClientId: (id: string) => boolean;
+  setClientIdSelection: (id: string, value: boolean) => void;
+  setMultipleClientIdSelections: (ids: string[], value: boolean) => void;
+  selectedContentId: string | null;
+  setSelectedContentId: (id: string | null) => void;
 };
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -30,10 +32,11 @@ const useAppContext = () => {
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const clients = useWebSocket<ClientParams[] | null>(BASE_URL_WS + "/api/admin/clients", WEBSOCKET_CONFIG).lastJsonMessage || [];
     const [selectedClientsIds, setSelectedClientsIds] = useState<string[]>([]);
+    const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
 
-    const isSelected = (id: string) => selectedClientsIds.includes(id);
+    const isSelectedClientId = (id: string) => selectedClientsIds.includes(id);
   
-    const setSelected = (id: string, value: boolean) => {
+    const setClientIdSelection = (id: string, value: boolean) => {
         if (value) {
             setSelectedClientsIds([...selectedClientsIds, id]);
         } else {
@@ -41,7 +44,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const setSelectedMultiple = (ids: string[], value: boolean) => {
+    const setMultipleClientIdSelections = (ids: string[], value: boolean) => {
         if (value) {
             setSelectedClientsIds([...selectedClientsIds, ...ids]);
         } else {
@@ -52,9 +55,11 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
     const appContextValue = {
         clients,
         selectedClientsIds,
-        isSelected,
-        setSelected,
-        setSelectedMultiple,
+        isSelectedClientId,
+        setClientIdSelection,
+        setMultipleClientIdSelections,
+        selectedContentId,
+        setSelectedContentId,
     };
 
     return (

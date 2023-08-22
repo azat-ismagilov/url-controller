@@ -1,46 +1,123 @@
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import CloseIcon from "@mui/icons-material/Close";
-import { Box, Dialog, DialogContent, DialogTitle, IconButton,Stack, TextField, Typography } from "@mui/material";
+import Close from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
+import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
+import axios from "axios";
 
-import JsonEditor from "./JsonEditor";
+import { BASE_URL_BACKEND } from "../../config";
+import logger from "../../logger";
+
+import ContentPreset from "./ContentPreset";
+import ContentPresetEditor from "./ContentPresetEditor";
+import { ContentPresetType } from "./types";
 
 const ContentPresets = () => {
-    const [open, setOpen] = useState(false);
+    const PRESETS_URL = BASE_URL_BACKEND + "/api/admin/content-presets";
 
-    const [name, setName] = useState("");
+    const [editorOpen, setEditorOpen] = useState(false);
+    const [editorPreset, setEditorPreset] = useState<ContentPresetType>();
+
+    const [presets, setPresets] = useState<ContentPresetType[]>([]);
+
+    function updatePresets() {
+        axios.get(PRESETS_URL)
+            .then((response) => {
+                setPresets(response.data);
+            }).catch((error) => {
+                logger.error(error, "Error loading presets");
+            });
+    }
+
+    useEffect(() => {
+        // Get presets from server
+        updatePresets();
+    }, []);
+
+    function addNewPreset(preset: ContentPresetType) {
+        // Add new preset
+        axios.post(PRESETS_URL, preset).then((response) => {
+            logger.success(response, "New preset added");
+        }).catch((error) => {
+            logger.error(error, "Error adding new preset");
+        });
+
+        // Wait for server to update
+        setTimeout(() => updatePresets(), 200);
+    }
+
+    function changePreset(id: string, preset: ContentPresetType) {
+        // Change preset
+        axios.put(PRESETS_URL + `/${id}`, preset)
+            .then((response) => {
+                logger.success(response, "Preset changed");
+            }).catch((error) => {
+                logger.error(error, "Error changing preset");
+            });
+
+        // Wait for server to update
+        setTimeout(() => updatePresets(), 200);
+    }
+
+    function deletePreset(id: string) {
+        // Delete preset
+        axios.delete(PRESETS_URL + `/${id}`)
+            .then((response) => {
+                logger.success(response, "Preset deleted");
+            }).catch((error) => {
+                logger.error(error, "Error deleting preset");
+            });
+
+        // Wait for server to update
+        setTimeout(() => updatePresets(), 200);
+    }
+    
+    function openNewPresetDialog() {
+        setEditorPreset(undefined);
+        setEditorOpen(true);
+    }
+
+    function openEditPresetDialog(preset: ContentPresetType) {
+        setEditorPreset(preset);
+        setEditorOpen(true);
+    }
+
+    function onSubmit(preset: ContentPresetType) {
+        if (preset.id) {
+            changePreset(preset.id, preset);
+        } else {
+            addNewPreset(preset);
+        }
+        setEditorOpen(false);
+    }
+
+    const onDelete = editorPreset?.id ? () => {
+        deletePreset(editorPreset.id!);
+        setEditorOpen(false);
+    } : undefined;
 
     return (
         <Box>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-                <Typography>
                 Content presets
-                </Typography>
-                <IconButton size="small" onClick={() => setOpen(true)}>
+                <IconButton size="small" onClick={() => openNewPresetDialog()}>
                     <AddIcon color="success" fontSize="small"/>
                 </IconButton>
             </Stack>
-            <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                    Add new content preset
-                        <IconButton size="small" onClick={() => setOpen(false)}>
-                            <CloseIcon fontSize="small"/>
-                        </IconButton>
-                    </Stack>
-                </DialogTitle>
-                <DialogContent>
-                    <Stack py={1} spacing={4}>
-                        <TextField
-                            label="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            fullWidth
-                        />
-                        <JsonEditor name="Default name" submitUrl="" />
-                    </Stack>
-                </DialogContent>
-            </Dialog>
+            <Grid container spacing={1}>
+                {presets.map((preset) => 
+                    <Grid item key={preset.id}>
+                        <ContentPreset preset={preset} onEdit={() => openEditPresetDialog(preset)} />
+                    </Grid>
+                )}
+            </Grid>
+            <ContentPresetEditor 
+                key={editorOpen ? "open" : "closed"}
+                open={editorOpen} 
+                setOpen={setEditorOpen} 
+                onSubmit={onSubmit} 
+                onDelete={onDelete}
+                defaultValue={editorPreset}/>
         </Box>
     );
 };

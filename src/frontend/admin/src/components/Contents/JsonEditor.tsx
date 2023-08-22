@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import Form from "@rjsf/mui";
 import { RegistryFieldsType, RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 import axios from "axios";
 
-import logger from "../../logger";
+type JsonEditorProps = {
+    defaultValue: unknown,
+    onSubmit: (arg0: unknown) => void,
+    onDelete?: () => void
+};
 
-const JsonEditor = ({ name, submitUrl }: { name: string, submitUrl: string }) => {
+const JsonEditor = ({ defaultValue, onSubmit, onDelete }: JsonEditorProps) => {
     const [schema, setSchema] = useState<RJSFSchema | undefined>();
     const [uiSchema, setUiSchema] = useState<UiSchema | undefined>();
 
     useEffect(() => {
-        axios.get("/content.schema.json").then((response) => {
+        axios.get("/generated.content.schema.json").then((response) => {
             setSchema(response.data);
         });
 
@@ -31,17 +35,13 @@ const JsonEditor = ({ name, submitUrl }: { name: string, submitUrl: string }) =>
             uiSchema={uiSchema}
             fields={fields}
             validator={validator}
-            onSubmit={({ formData }) => {
-                axios.post(submitUrl, {
-                    name,
-                    content: formData
-                }).then((response) => {
-                    logger.success(response);
-                }).catch((error) => {
-                    logger.error(error, "Error saving preset");
-                });
-            }}
-        />
+            formData={defaultValue}
+            onSubmit={({ formData }) => onSubmit(formData)}>
+            <Stack direction="row" spacing={2} pt={2} justifyContent="space-between">
+                <Button variant="contained" type="submit">Submit</Button>
+                {onDelete && <Button variant="contained" onClick={onDelete} color="error">Delete</Button>}
+            </Stack>
+        </Form>
     );
 };
 

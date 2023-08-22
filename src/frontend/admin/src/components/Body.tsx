@@ -11,14 +11,12 @@ import ContentPresets from "./Contents/ContentPresets";
 import { useAppContext } from "./AppContext";
 
 const Body = () => {
-    const { selectedClientsIds } = useAppContext();
-
-    const [url, setUrl] = useState<string>();
+    const { selectedClientsIds, selectedContentId } = useAppContext();
 
     const clickSubmit = () => {
         // Run post request to server
         axios.post(BASE_URL_BACKEND + "/api/admin/send", {
-            url,
+            contentId: selectedContentId,
             clientIds: selectedClientsIds,
         }).then((response) => {
             logger.log(response, "URL is changed");
@@ -38,7 +36,7 @@ const Body = () => {
                 <ClientPresets />
                 <Button
                     variant="contained"
-                    disabled={selectedClientsIds.length == 0 || url === undefined}
+                    disabled={selectedClientsIds.length == 0 || selectedContentId == null}
                     onClick={clickSubmit}
                 >
                     Send

@@ -11,7 +11,7 @@ type ClientsGroupProps = {
 };
 
 const ClientsGroup = ({ group, clients }: ClientsGroupProps) => {
-    const { isSelected, setSelected } = useAppContext();
+    const { isSelectedClientId, setClientIdSelection } = useAppContext();
 
     return (
         <FormGroup>
@@ -26,8 +26,8 @@ const ClientsGroup = ({ group, clients }: ClientsGroupProps) => {
                         label={client.name}
                         control={
                             <Checkbox
-                                checked={isSelected(client.id)}
-                                onChange={(event) => setSelected(client.id, event.target.checked)}
+                                checked={isSelectedClientId(client.id)}
+                                onChange={(event) => setClientIdSelection(client.id, event.target.checked)}
                             />
                         }
                     />
