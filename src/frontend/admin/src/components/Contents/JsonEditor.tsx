@@ -6,8 +6,8 @@ import validator from "@rjsf/validator-ajv8";
 import axios from "axios";
 
 type JsonEditorProps = {
-    defaultValue: unknown,
-    onSubmit: (arg0: unknown) => void,
+    defaultValue?: object,
+    onSubmit: (arg0: object) => void,
     onDelete?: () => void
 };
 
