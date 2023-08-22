@@ -74,9 +74,7 @@ const ClientPresets = () => {
     return (
         <Stack>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-                <Typography>
-                Presets
-                </Typography>
+                Client presets
                 <IconButton onClick={addNewPreset} size="small">
                     <AddIcon color="success" fontSize="small"/>
                 </IconButton>
