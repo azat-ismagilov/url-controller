@@ -24,7 +24,7 @@ fun Route.configureAdminRouting() {
     post("/send") {
         val parameters = call.receive<SendParams>()
         for (id in parameters.clientIds) {
-            ConnectionManager.setUrl(id, parameters.url)
+            ConnectionManager.setContent(id, parameters.content)
         }
         return@post call.respondText("OK")
     }
