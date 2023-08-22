@@ -24,7 +24,7 @@ const ContentPresetEditor = ({ open, setOpen, onSubmit, onDelete, defaultValue }
         <Dialog open={open} onClose={() => setOpen(false)}>
             <DialogTitle>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
-                    Add new content preset
+                    Content preset
                     <IconButton size="small" onClick={() => setOpen(false)}>
                         <CloseIcon fontSize="small"/>
                     </IconButton>

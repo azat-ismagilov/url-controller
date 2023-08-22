@@ -1,8 +1,6 @@
 import { useEffect,useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import Close from "@mui/icons-material/Close";
-import EditIcon from "@mui/icons-material/Edit";
-import { Box, Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Stack } from "@mui/material";
 import axios from "axios";
 
 import { BASE_URL_BACKEND } from "../../config";
