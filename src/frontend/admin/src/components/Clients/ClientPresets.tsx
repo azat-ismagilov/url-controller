@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import axios from "axios";
 
 import { BASE_URL_BACKEND } from "../../config";
