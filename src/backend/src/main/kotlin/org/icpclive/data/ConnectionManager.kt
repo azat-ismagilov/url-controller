@@ -49,6 +49,7 @@ object ConnectionManager {
         for (connection in filteredConnections) {
             sendContent(connection, content)
         }
+        _clientsFlow.value = clients
     }
 
     private fun getContent(clientId: String): Content? {
