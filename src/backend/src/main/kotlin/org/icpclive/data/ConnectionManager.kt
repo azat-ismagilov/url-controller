@@ -9,7 +9,7 @@ import java.util.*
 
 object ConnectionManager {
     private val connections = Collections.synchronizedSet(mutableSetOf<Connection>())
-    private val contentByConnection = Collections.synchronizedMap(mutableMapOf<String, Content>())
+    private val contentByConnection = Collections.synchronizedMap(mutableMapOf<String, Content?>())
 
 
     private val clients: List<ClientWithContent>
@@ -31,13 +31,13 @@ object ConnectionManager {
         _clientsFlow.value = clients
     }
 
-    private suspend fun sendContent(connection: Connection, content: Content) {
+    private suspend fun sendContent(connection: Connection, content: Content?) {
         connection.session.send(defaultJsonSettings().encodeToString(content))
     }
 
     private fun filteredConnections(clientId: String) = connections.filter { it.config.id == clientId }
 
-    suspend fun setContent(clientId: String, content: Content) {
+    suspend fun setContent(clientId: String, content: Content?) {
         if (content === getContent(clientId)) {
             return
         }
