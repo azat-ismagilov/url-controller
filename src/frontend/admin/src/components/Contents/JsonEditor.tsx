@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import Form from "@rjsf/mui";
 import { RegistryFieldsType, RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
-import axios from "axios";
+import generatedContentSchema from "./generated.content.schema.json"
+import contentUiSchema from "./content.ui-schema.json";
 
 type JsonEditorProps = {
     defaultValue?: object,
@@ -12,20 +12,8 @@ type JsonEditorProps = {
 };
 
 const JsonEditor = ({ defaultValue, onSubmit, onDelete }: JsonEditorProps) => {
-    const [schema, setSchema] = useState<RJSFSchema | undefined>();
-    const [uiSchema, setUiSchema] = useState<UiSchema | undefined>();
-
-    useEffect(() => {
-        axios.get("/generated.content.schema.json").then((response) => {
-            setSchema(response.data);
-        });
-
-        axios.get("/content.ui-schema.json").then((response) => {
-            setUiSchema(response.data);
-        });
-    }, []);
-
-    if (!schema) return (<Typography>Loading...</Typography>);
+    const schema = generatedContentSchema as RJSFSchema;
+    const uiSchema = contentUiSchema as UiSchema;
 
     const fields: RegistryFieldsType = { custom_hidden: () => <div /> };
 
