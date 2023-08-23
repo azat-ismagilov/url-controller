@@ -11,13 +11,16 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
+import io.ktor.util.*
 import org.icpclive.admin.configureAdminRouting
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
+import java.io.File
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -77,6 +80,8 @@ private fun Application.setupKtorPlugins() {
     }
 }
 
+private const val pathParameterName = "static-content-path-parameter"
+
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
     config = Config(environment)
@@ -84,6 +89,20 @@ fun Application.module() {
 
     routing {
         staticResources("/", "overlay")
+        route("/media") {
+            val dir = File("media")
+            get("{${pathParameterName}...}") {
+                val relativePath = call.parameters.getAll(pathParameterName)?.joinToString(File.separator) ?: return@get
+                val file = dir.combineSafe(relativePath)
+                if (file.isDirectory) {
+                    call.respond(file.listFiles()?.map { "/${file.path}/${it.name}" } ?: emptyList())
+                }
+                if (file.isFile) {
+                    call.respondFile(file)
+                }
+                call.respond(HttpStatusCode.NotFound)
+            }
+        }
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"
