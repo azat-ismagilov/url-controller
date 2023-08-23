@@ -10,13 +10,13 @@ type ContentPresetEditorProps = {
     setOpen: (arg0: boolean) => void,
     onSubmit: (arg0: ContentPresetType) => void,
     onDelete?: () => void,
-    defaultValue: ContentPresetType | undefined
+    defaultValue: ContentPresetType | undefined  
 };
 
 const ContentPresetEditor = ({ open, setOpen, onSubmit, onDelete, defaultValue }: ContentPresetEditorProps) => {
     const [name, setName] = useState<string>(defaultValue?.name || "");
 
-    const onSubmitForm = (formData: unknown) => {
+    const onSubmitForm = (formData: object) => {
         onSubmit({ name, content: formData, id: defaultValue?.id });
     };
 
@@ -38,7 +38,7 @@ const ContentPresetEditor = ({ open, setOpen, onSubmit, onDelete, defaultValue }
                         onChange={(e) => setName(e.target.value)}
                         fullWidth
                     />
-                    <JsonEditor defaultValue={defaultValue?.content} onSubmit={onSubmitForm} onDelete={onDelete}/>
+                    <JsonEditor defaultValue={defaultValue?.content || undefined} onSubmit={onSubmitForm} onDelete={onDelete}/>
                 </Stack>
             </DialogContent>
         </Dialog>

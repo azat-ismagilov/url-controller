@@ -95,6 +95,8 @@ const ContentPresets = () => {
         setEditorOpen(false);
     } : undefined;
 
+    const emptyContentPreset: ContentPresetType = { name: "Empty", content: null };
+
     return (
         <Box>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -104,6 +106,9 @@ const ContentPresets = () => {
                 </IconButton>
             </Stack>
             <Grid container spacing={1}>
+                <Grid item>
+                    <ContentPreset preset={emptyContentPreset} />
+                </Grid>
                 {presets.map((preset) => 
                     <Grid item key={preset.id}>
                         <ContentPreset preset={preset} onEdit={() => openEditPresetDialog(preset)} />

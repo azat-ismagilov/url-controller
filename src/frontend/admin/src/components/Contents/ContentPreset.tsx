@@ -1,6 +1,7 @@
 import Done from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import { Chip } from "@mui/material";
+import isEqual from "lodash.isequal";
 
 import { pickColor } from "../../utils/colors";
 import { useAppContext } from "../AppContext";
@@ -13,15 +14,15 @@ type ContentPresetProps = {
 };
 
 const ContentPreset = ({ preset, onEdit }: ContentPresetProps) => {
-    const color = pickColor(preset.id!);
+    const color = pickColor(preset.id ?? "");
 
     const { selectedContentPreset, setSelectedContentPreset } = useAppContext();
 
-    const selected = selectedContentPreset === preset;
+    const selected = isEqual(selectedContentPreset, preset);
 
     const handleClick = () => {
         if (selected) {
-            setSelectedContentPreset(null);
+            setSelectedContentPreset(undefined);
         } else {
             setSelectedContentPreset(preset);
         }
