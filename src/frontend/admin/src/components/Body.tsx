@@ -1,5 +1,5 @@
 
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 
 import { BASE_URL_BACKEND } from "../config";
@@ -11,7 +11,7 @@ import ContentPresets from "./Contents/ContentPresets";
 import { useAppContext } from "./AppContext";
 
 const Body = () => {
-    const { selectedClientsIds, selectedContentPreset } = useAppContext();
+    const { selectedClientsIds, selectedContentPreset, setSelectedContentPreset, setSelectedClientsIds } = useAppContext();
 
     const clickSubmit = () => {
         // Run post request to server
@@ -23,6 +23,12 @@ const Body = () => {
         }).catch((error) => {
             logger.error(error, "Error sending request");
         });
+    };
+    
+    const clearSelections = () => {
+        // Clear selections
+        setSelectedClientsIds([]);
+        setSelectedContentPreset(null);
     };
 
     return (
@@ -41,13 +47,23 @@ const Body = () => {
                     <ClientPresets />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        disabled={selectedClientsIds.length == 0 || selectedContentPreset == null}
-                        onClick={clickSubmit}
-                    >
+                    <Stack direction="row" spacing={1}>
+                        <Button
+                            variant="contained"
+                            disabled={selectedClientsIds.length == 0 || selectedContentPreset == null}
+                            onClick={clickSubmit}
+                        >
                         Send
-                    </Button>
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            disabled={selectedClientsIds.length == 0 && selectedContentPreset == null}
+                            onClick={clearSelections}
+                        >
+                        Clear
+                        </Button>
+                    </Stack>
                 </Grid>
             </Grid>
         </Container>

@@ -12,6 +12,7 @@ type AppContextType = {
     contentPresets: ContentPresetType[];
     setContentPresets: (presets: ContentPresetType[]) => void;
     selectedClientsIds: string[];
+    setSelectedClientsIds: (ids: string[]) => void;
     isSelectedClientId: (id: string) => boolean;
     setClientIdSelection: (id: string, value: boolean) => void;
     setMultipleClientIdSelections: (ids: string[], value: boolean) => void;
@@ -66,6 +67,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         contentPresets,
         setContentPresets,
         selectedClientsIds,
+        setSelectedClientsIds,
         isSelectedClientId,
         setClientIdSelection,
         setMultipleClientIdSelections,
