@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { BASE_URL_BACKEND } from "../../config";
 import logger from "../../logger";
+import { useAppContext } from "../AppContext";
 
 import ContentPreset from "./ContentPreset";
 import ContentPresetEditor from "./ContentPresetEditor";
@@ -16,7 +17,7 @@ const ContentPresets = () => {
     const [editorOpen, setEditorOpen] = useState(false);
     const [editorPreset, setEditorPreset] = useState<ContentPresetType>();
 
-    const [presets, setPresets] = useState<ContentPresetType[]>([]);
+    const { contentPresets: presets, setContentPresets: setPresets } = useAppContext();
 
     function updatePresets() {
         axios.get(PRESETS_URL)

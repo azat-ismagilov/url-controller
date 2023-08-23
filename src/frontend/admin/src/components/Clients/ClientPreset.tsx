@@ -21,6 +21,8 @@ const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps)
 
     const { clients } = useAppContext();
 
+    const possibleClientIds = clients.map((client) => client.id);
+
     if (!edit) {
         return (<Stack direction="row" justifyContent="space-between" alignItems="center">
             <MultipleCheckboxController 
@@ -42,7 +44,7 @@ const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps)
             <Autocomplete
                 multiple
                 fullWidth
-                options={clients.map((client) => client.id)}
+                options={possibleClientIds}
                 value={clientIds}
                 onChange={(event, value) => setClientIds(value)}
                 renderInput={(params) => (

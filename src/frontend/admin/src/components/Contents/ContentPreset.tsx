@@ -15,23 +15,15 @@ type ContentPresetProps = {
 const ContentPreset = ({ preset, onEdit }: ContentPresetProps) => {
     const color = pickColor(preset.id!);
 
-    if (!onEdit) {
-        return (
-            <Chip label={preset.name} 
-                sx={{ backgroundColor: color, color: "white" }}
-            />
-        );
-    }
+    const { selectedContentPreset, setSelectedContentPreset } = useAppContext();
 
-    const { selectedContentId, setSelectedContentId } = useAppContext();
-
-    const selected = selectedContentId == preset.id;
+    const selected = selectedContentPreset === preset;
 
     const handleClick = () => {
         if (selected) {
-            setSelectedContentId(null);
+            setSelectedContentPreset(null);
         } else {
-            setSelectedContentId(preset.id!);
+            setSelectedContentPreset(preset);
         }
     };
 
