@@ -20,7 +20,7 @@ const JsonEditor = ({ defaultValue, onSubmit, onDelete }: JsonEditorProps) => {
             setSchema(response.data);
         });
 
-        axios.get("/content.ui.schema.json").then((response) => {
+        axios.get("/content.ui-schema.json").then((response) => {
             setUiSchema(response.data);
         });
     }, []);
