@@ -17,7 +17,7 @@ tasks {
         inputs.file("overlay/package.json")
     }
     named<NpmTask>("npm_run_buildAdmin") {
-        environment.set(mapOf("PUBLIC_URL" to "/overlay", "BUILD_PATH" to "build"))
+        environment.set(mapOf("PUBLIC_URL" to "/admin", "BUILD_PATH" to "build"))
         inputs.dir("admin/src")
         inputs.dir("admin/public")
         inputs.file("admin/index.html")
