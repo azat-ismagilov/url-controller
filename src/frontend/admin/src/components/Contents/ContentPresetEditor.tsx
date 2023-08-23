@@ -26,7 +26,7 @@ const ContentPresetEditor = ({ open, setOpen, onSubmit, onDelete, defaultValue }
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                     Content preset
                     <IconButton size="small" onClick={() => setOpen(false)}>
-                        <CloseIcon fontSize="small"/>
+                        <CloseIcon fontSize="inherit"/>
                     </IconButton>
                 </Stack>
             </DialogTitle>

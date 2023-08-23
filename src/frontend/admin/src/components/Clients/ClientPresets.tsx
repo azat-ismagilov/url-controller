@@ -75,8 +75,8 @@ const ClientPresets = () => {
         <Stack>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
                 Client presets
-                <IconButton onClick={addNewPreset} size="small">
-                    <AddIcon color="success" fontSize="small"/>
+                <IconButton size="small" onClick={addNewPreset} >
+                    <AddIcon color="success" fontSize="inherit"/>
                 </IconButton>
             </Stack>
             {presets.map((preset) => (

@@ -102,7 +102,7 @@ const ContentPresets = () => {
             <Stack direction="row" justifyContent="space-between" alignItems="center">
                 Content presets
                 <IconButton size="small" onClick={() => openNewPresetDialog()}>
-                    <AddIcon color="success" fontSize="small"/>
+                    <AddIcon fontSize="inherit" color="success"/>
                 </IconButton>
             </Stack>
             <Grid container spacing={1}>

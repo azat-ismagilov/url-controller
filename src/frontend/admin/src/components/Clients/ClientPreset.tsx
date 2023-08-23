@@ -30,7 +30,7 @@ const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps)
                 ids={preset.clientIds} 
             />
             <IconButton size="small" onClick={() => setEdit(true)}>
-                <EditIcon fontSize="small" />
+                <EditIcon fontSize="inherit" />
             </IconButton>
         </Stack>);
     } else {
@@ -61,14 +61,14 @@ const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps)
                 setEdit(false);
                 deletePreset(preset.id);
             }}>
-                <Delete fontSize="small" color="error" />
+                <Delete fontSize="inherit" color="error" />
             </IconButton>
 
             <IconButton size="small" onClick={() => {
                 setEdit(false);
                 changePreset(preset.id, { ...preset, name, clientIds });
             }}>
-                <Save fontSize="small" />
+                <Save fontSize="inherit" />
             </IconButton>
         </Stack>);
     }
