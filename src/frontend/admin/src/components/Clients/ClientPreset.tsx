@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Delete, Save } from "@mui/icons-material";
+import Delete from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import Save from "@mui/icons-material/Save";
 import { Autocomplete, IconButton, Stack, TextField } from "@mui/material";
 
 import { useAppContext } from "../AppContext";
