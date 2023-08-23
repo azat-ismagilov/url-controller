@@ -2,9 +2,6 @@
   "type": {
     "ui:widget": "hidden"
   },
-  "durationSeconds": {
-    
-  },
   "substitutions": {
     "ui:options": {
       "orderable": false
