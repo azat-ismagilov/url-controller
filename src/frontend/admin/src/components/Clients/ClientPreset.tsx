@@ -47,7 +47,7 @@ const ClientPreset = ({ preset, changePreset, deletePreset }: ClientPresetProps)
                 fullWidth
                 options={possibleClientIds}
                 value={clientIds}
-                onChange={(event, value) => setClientIds(value)}
+                onChange={(_event, value) => setClientIds(value)}
                 renderInput={(params) => (
                     <TextField
                         {...params}
