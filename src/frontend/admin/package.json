@@ -1,6 +1,5 @@
 {
   "name": "org.icpclive.url-controller.admin",
-  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "latest",
