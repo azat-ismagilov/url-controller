@@ -22,7 +22,7 @@ export namespace Content {
   
   export interface Sequence {
     type: Content.Type.Sequence;
-    sequence: SequenceEntry[];
+    sequence: SimpleContent[];
   }
   
   export interface IFrame {
@@ -59,23 +59,12 @@ export namespace Content {
   export interface Video {
     type: Content.Type.Video;
     url: string;
-    durationSeconds?: number | null;
   }
   
   export interface VideoFolder {
     type: Content.Type.VideoFolder;
-    path: string;
-    durationSeconds?: number | null;
+    url: string;
   }
-}
-
-export interface SequenceEntry {
-  content: SimpleContent;
-}
-
-export interface Substitution {
-  from: string;
-  to: string;
 }
 
 export type SimpleContent =
@@ -132,12 +121,15 @@ export namespace SimpleContent {
   export interface Video {
     type: SimpleContent.Type.Video;
     url: string;
-    durationSeconds?: number | null;
   }
   
   export interface VideoFolder {
     type: SimpleContent.Type.VideoFolder;
-    path: string;
-    durationSeconds?: number | null;
+    url: string;
   }
+}
+
+export interface Substitution {
+  from: string;
+  to: string;
 }

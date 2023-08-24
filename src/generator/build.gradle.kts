@@ -41,7 +41,7 @@ fun TaskContainerScope.genTypescriptTask(classPackage: String, className: String
 
 tasks {
     val genTasks = listOf(
-        genSchemaTask("org.icpclive.data", "Content", "src/frontend/admin/public", "generated.content", "Content"),
+        genSchemaTask("org.icpclive.data", "Content", "src/frontend/admin/src/components/Contents", "generated.content", "Content"),
         genTypescriptTask("org.icpclive.data", "Content", "src/frontend/overlay/src", "generated.content"),
     )
     register("gen") {

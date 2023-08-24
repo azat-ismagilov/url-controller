@@ -17,13 +17,8 @@
       "label": false
     },
     "items": {
-      "ui:options": {
-        "label": false
-      },
-      "content": {
-        "type": {
-          "ui:widget": "hidden"
-        }
+      "type": {
+        "ui:widget": "hidden"
       }
     }
   }

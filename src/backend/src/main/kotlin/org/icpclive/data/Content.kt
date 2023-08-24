@@ -13,42 +13,36 @@ sealed class Content
 
 @Serializable
 @SerialName("SimpleContent")
-sealed class SimpleContent : Content() {
-    abstract val durationSeconds: Int?
-}
+sealed class SimpleContent : Content()
 
 @Serializable
 @SerialName("IFrame")
-data class IFrame(val url: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class IFrame(val url: String, val durationSeconds: Int? = null) : SimpleContent()
 
 @Serializable
 @SerialName("Image")
-data class Image(val url: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class Image(val url: String, val durationSeconds: Int? = null) : SimpleContent()
 
 @Serializable
 @SerialName("ImageFolder")
-data class ImageFolder(val url: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class ImageFolder(val url: String, val durationSeconds: Int? = null) : SimpleContent()
 
 @Serializable
 @SerialName("Video")
-data class Video(val url: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class Video(val url: String) : SimpleContent()
 
 @Serializable
 @SerialName("VideoFolder")
-data class VideoFolder(val path: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class VideoFolder(val url: String) : SimpleContent()
 
 @Serializable
 @SerialName("Text")
-data class Text(val text: String, override val durationSeconds: Int? = null) : SimpleContent()
+data class Text(val text: String, val durationSeconds: Int? = null) : SimpleContent()
 
 @Serializable
 @SerialName("SmartSVG")
-data class SmartSVG(val url: String, val substitutions: List<Substitution>, override val durationSeconds: Int? = null) : SimpleContent()
-
-@Serializable
-@SerialName("SequenceEntry")
-data class SequenceEntry(val content: SimpleContent)
+data class SmartSVG(val url: String, val substitutions: List<Substitution>, val durationSeconds: Int? = null) : SimpleContent()
 
 @Serializable
 @SerialName("Sequence")
-data class Sequence(val sequence: List<SequenceEntry>) : Content()
+data class Sequence(val sequence: List<SimpleContent>) : Content()

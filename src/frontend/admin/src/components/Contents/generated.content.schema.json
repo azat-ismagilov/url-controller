@@ -147,9 +147,6 @@
                 },
                 "url": {
                     "$ref": "#/$defs/kotlin.String"
-                },
-                "durationSeconds": {
-                    "$ref": "#/$defs/kotlin.Int?"
                 }
             },
             "additionalProperties": false,
@@ -166,17 +163,14 @@
                     "const": "VideoFolder",
                     "default": "VideoFolder"
                 },
-                "path": {
+                "url": {
                     "$ref": "#/$defs/kotlin.String"
-                },
-                "durationSeconds": {
-                    "$ref": "#/$defs/kotlin.Int?"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type",
-                "path"
+                "url"
             ],
             "title": "VideoFolder"
         },
@@ -205,22 +199,10 @@
                 }
             ]
         },
-        "SequenceEntry<SimpleContent>": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "$ref": "#/$defs/SimpleContent<kotlin.String,kotlinx.serialization.Sealed<SimpleContent>>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "content"
-            ]
-        },
-        "kotlin.collections.ArrayList<SequenceEntry>": {
+        "kotlin.collections.ArrayList<SimpleContent>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/SequenceEntry<SimpleContent>"
+                "$ref": "#/$defs/SimpleContent<kotlin.String,kotlinx.serialization.Sealed<SimpleContent>>"
             }
         },
         "Sequence": {
@@ -231,7 +213,7 @@
                     "default": "Sequence"
                 },
                 "sequence": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<SequenceEntry>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<SimpleContent>"
                 }
             },
             "additionalProperties": false,
