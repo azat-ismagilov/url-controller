@@ -34,7 +34,7 @@ const ContentPreset = ({ preset, onEdit }: ContentPresetProps) => {
                 backgroundColor: selected ? undefined : color,
             }}
             icon={selected ? <Done /> : undefined}
-            onDelete={selected ? undefined : onEdit} 
+            onDelete={onEdit} 
             variant={selected ? "outlined" : "filled"}
             deleteIcon={<EditIcon />} 
             onClick={handleClick} />
