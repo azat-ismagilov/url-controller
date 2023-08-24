@@ -3,14 +3,21 @@ import useWebSocket from "react-use-websocket";
 
 import { BASE_URL_WS, WEBSOCKET_CONFIG } from "../config";
 
-import { ClientParams } from "./types";
+import { ClientParams,ClientWithContent } from "./Clients/types";
+import { ContentPresetType } from "./Contents/types";
 
 type AppContextType = {
-  clients: ClientParams[];
-  selectedClientsIds: string[];
-  isSelected: (id: string) => boolean;
-  setSelected: (id: string, value: boolean) => void;
-  setSelectedMultiple: (ids: string[], value: boolean) => void;
+    clients: ClientParams[];
+    clientsWithContent: ClientWithContent[];
+    contentPresets: ContentPresetType[];
+    setContentPresets: (presets: ContentPresetType[]) => void;
+    selectedClientsIds: string[];
+    setSelectedClientsIds: (ids: string[]) => void;
+    isSelectedClientId: (id: string) => boolean;
+    setClientIdSelection: (id: string, value: boolean) => void;
+    setMultipleClientIdSelections: (ids: string[], value: boolean) => void;
+    selectedContentPreset: ContentPresetType | null | undefined;
+    setSelectedContentPreset: (id: ContentPresetType | null | undefined) => void;
 };
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -28,12 +35,17 @@ const useAppContext = () => {
 };
 
 const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const clients = useWebSocket<ClientParams[] | null>(BASE_URL_WS + "/api/admin/clients", WEBSOCKET_CONFIG).lastJsonMessage || [];
-    const [selectedClientsIds, setSelectedClientsIds] = useState<string[]>([]);
+    const clientsWithContent = useWebSocket<ClientWithContent[] | null>(BASE_URL_WS + "/api/admin/clients", WEBSOCKET_CONFIG).lastJsonMessage || [];
+    const clients = clientsWithContent.map((clientWithContent) => clientWithContent.client);
 
-    const isSelected = (id: string) => selectedClientsIds.includes(id);
+    const [contentPresets, setContentPresets] = useState<ContentPresetType[]>([]);
+
+    const [selectedClientsIds, setSelectedClientsIds] = useState<string[]>([]);
+    const [selectedContentPreset, setSelectedContentPreset] = useState<ContentPresetType | null>();
+
+    const isSelectedClientId = (id: string) => selectedClientsIds.includes(id);
   
-    const setSelected = (id: string, value: boolean) => {
+    const setClientIdSelection = (id: string, value: boolean) => {
         if (value) {
             setSelectedClientsIds([...selectedClientsIds, id]);
         } else {
@@ -41,7 +53,7 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const setSelectedMultiple = (ids: string[], value: boolean) => {
+    const setMultipleClientIdSelections = (ids: string[], value: boolean) => {
         if (value) {
             setSelectedClientsIds([...selectedClientsIds, ...ids]);
         } else {
@@ -51,10 +63,16 @@ const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const appContextValue = {
         clients,
+        clientsWithContent,
+        contentPresets,
+        setContentPresets,
         selectedClientsIds,
-        isSelected,
-        setSelected,
-        setSelectedMultiple,
+        setSelectedClientsIds,
+        isSelectedClientId,
+        setClientIdSelection,
+        setMultipleClientIdSelections,
+        selectedContentPreset,
+        setSelectedContentPreset,
     };
 
     return (

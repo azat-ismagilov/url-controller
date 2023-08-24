@@ -1,59 +1,71 @@
-import { useState } from "react";
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 
 import { BASE_URL_BACKEND } from "../config";
+import logger from "../logger";
 
+import ClientPresets from "./Clients/ClientPresets";
+import Clients from "./Clients/Clients";
+import ContentPresets from "./Contents/ContentPresets";
 import { useAppContext } from "./AppContext";
-import Clients from "./Clients";
-import Presets from "./Presets";
 
 const Body = () => {
-    const { selectedClientsIds } = useAppContext();
-
-    const [url, setUrl] = useState<string>();
+    const { selectedClientsIds, selectedContentPreset, setSelectedContentPreset, setSelectedClientsIds } = useAppContext();
 
     const clickSubmit = () => {
         // Run post request to server
         axios.post(BASE_URL_BACKEND + "/api/admin/send", {
-            url,
+            content: selectedContentPreset!.content,
             clientIds: selectedClientsIds,
         }).then((response) => {
-            console.log(response);
-            enqueueSnackbar("URL is changed", { variant: "success" });
+            logger.log(response, "URL is changed");
         }).catch((error) => {
-            console.error(error);
-            enqueueSnackbar("Error sending request", { variant: "error" });
+            logger.error(error, "Error sending request");
         });
+    };
+    
+    const clearSelections = () => {
+        // Clear selections
+        setSelectedClientsIds([]);
+        setSelectedContentPreset(null);
     };
 
     return (
-        <Container maxWidth="sm">
-            <Stack p={4} spacing={2}>
-                <Typography variant="h4">
-                    Control panel
-                </Typography>
-                <TextField
-                    label="URL"
-                    variant="standard"
-                    fullWidth
-                    value={url}
-                    onChange={(event) => {
-                        setUrl(event.target.value);
-                    }}
-                />
-
-                <Clients />
-                <Presets />
-                <Button
-                    variant="contained"
-                    disabled={selectedClientsIds.length == 0 || url === undefined}
-                    onClick={clickSubmit}
-                >
-                    Send
-                </Button>
-            </Stack>
+        <Container maxWidth="md">
+            <Grid container p={4} columnSpacing={5} rowSpacing={2} >
+                <Grid item xs={12}>
+                    <Typography variant="h4">
+                            Control panel
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <ContentPresets />
+                </Grid> 
+                <Grid item xs={12} sm={6}>
+                    <Clients />
+                    <ClientPresets />
+                </Grid>
+                <Grid item xs={12}>
+                    <Stack direction="row" spacing={1}>
+                        <Button
+                            variant="contained"
+                            disabled={selectedClientsIds.length == 0 || selectedContentPreset == null}
+                            onClick={clickSubmit}
+                        >
+                        Send
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            disabled={selectedClientsIds.length == 0 && selectedContentPreset == null}
+                            onClick={clearSelections}
+                        >
+                        Clear
+                        </Button>
+                    </Stack>
+                </Grid>
+            </Grid>
         </Container>
     );
 };

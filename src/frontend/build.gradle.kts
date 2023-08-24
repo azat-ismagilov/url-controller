@@ -14,15 +14,20 @@ node {
 tasks {
     npmInstall {
         inputs.file("admin/package.json")
+        inputs.file("overlay/package.json")
     }
     named<NpmTask>("npm_run_buildAdmin") {
-        environment.set(mapOf("PUBLIC_URL" to "/admin"))
+        environment.set(mapOf("PUBLIC_URL" to "/admin", "BUILD_PATH" to "build"))
         inputs.dir("admin/src")
-        inputs.dir("admin/public")
+        inputs.file("admin/index.html")
         inputs.file("admin/package.json")
         outputs.dir("admin/build")
     }
-    task("buildOverlay") {
-        outputs.dir("overlay")
+    named<NpmTask>("npm_run_buildOverlay") {
+        environment.set(mapOf("PUBLIC_URL" to "/", "BUILD_PATH" to "build"))
+        inputs.dir("overlay/src")
+        inputs.file("overlay/index.html")
+        inputs.file("overlay/package.json")
+        outputs.dir("overlay/build")
     }
 }

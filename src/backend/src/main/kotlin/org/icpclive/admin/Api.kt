@@ -1,6 +1,5 @@
 package org.icpclive.admin
 
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -11,16 +10,21 @@ import kotlinx.coroutines.async
 import kotlinx.serialization.encodeToString
 import org.icpclive.data.ConnectionManager
 import org.icpclive.utils.defaultJsonSettings
+import kotlin.io.path.Path
 
 fun Route.configureAdminRouting() {
-    route("/presets") {
-        configurePresetsRouting()
+    route("/client-presets") {
+        configurePresetsRouting<ClientPreset>(Path("./client-presets.json"))
+    }
+
+    route("/content-presets") {
+        configurePresetsRouting<ContentPreset>(Path("./content-presets.json"))
     }
 
     post("/send") {
         val parameters = call.receive<SendParams>()
         for (id in parameters.clientIds) {
-            ConnectionManager.setUrl(id, parameters.url)
+            ConnectionManager.setContent(id, parameters.content)
         }
         return@post call.respondText("OK")
     }

@@ -358,3 +358,7 @@ artifacts
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+client-presets.json
+content-presets.json
+media/

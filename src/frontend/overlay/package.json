@@ -1,0 +1,23 @@
+{
+  "name": "org.icpclive.url-controller.overlay",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "textfit": "^2.4.0",
+    "@types/textfit": "^2.4.2",
+    "video.js": "^8.5.2",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "latest",
+    "eslint": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-simple-import-sort": "latest"
+  }
+}

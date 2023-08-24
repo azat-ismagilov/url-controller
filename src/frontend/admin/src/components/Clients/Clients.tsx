@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
+
 import ClientsGroup from "./ClientsGroup";
 
 const Clients = () => {

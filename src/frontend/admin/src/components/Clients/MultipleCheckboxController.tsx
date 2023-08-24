@@ -1,6 +1,6 @@
 import { Checkbox,FormControlLabel } from "@mui/material";
 
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "../AppContext";
 
 type MultipleCheckboxControllerProps = {
     label: string;
@@ -8,9 +8,9 @@ type MultipleCheckboxControllerProps = {
 };
 
 const MultipleCheckboxController = ({ label, ids }: MultipleCheckboxControllerProps) => {
-    const { isSelected, setSelectedMultiple } = useAppContext();
+    const { isSelectedClientId, setMultipleClientIdSelections } = useAppContext();
 
-    const childrenValues = ids.map((id) => isSelected(id));
+    const childrenValues = ids.map((id) => isSelectedClientId(id));
     const checked = childrenValues.length > 0 && childrenValues.every((value) => value);
     const indeterminate = !checked && childrenValues.some((value) => value);
 
@@ -21,7 +21,7 @@ const MultipleCheckboxController = ({ label, ids }: MultipleCheckboxControllerPr
                 <Checkbox
                     checked={checked}
                     indeterminate={indeterminate}
-                    onChange={(event) => setSelectedMultiple(ids, event.target.checked)}
+                    onChange={(event) => setMultipleClientIdSelections(ids, event.target.checked)}
                 />
             }
         />

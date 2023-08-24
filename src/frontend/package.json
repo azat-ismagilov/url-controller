@@ -1,12 +1,12 @@
 {
-  "name": "icpc-live-v3",
-  "version": "3.1.0",
+  "name": "org.icpclive.url-controller",
   "private": true,
   "scripts": {
-    "buildAdmin": "npm run build -w admin",
-    "lint": "npm run lint -w admin"
+    "buildOverlay": "npm run build -w overlay",
+    "buildAdmin": "npm run build -w admin"
   },
   "workspaces": [
+    "overlay",
     "admin"
   ]
 }
