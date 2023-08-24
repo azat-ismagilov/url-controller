@@ -1,10 +1,23 @@
+import displayContent from "./displayContent.ts";
+import { connectWebSocket } from "./websocket.ts";
+
 import "./style.css";
-import {connectWebSocket} from "./websocket.ts";
+import {Content, SimpleContent} from "./generated.content.ts";
 
-const app = document.querySelector<HTMLDivElement>("#app")!;
+let data: Content | SimpleContent | null = null;
+let abortController: AbortController = new AbortController();
 
-app.innerHTML = `
-    <h1>Overlay</h1>
-`;
+async function processEvent(event: MessageEvent) {
+    const newData = JSON.parse(event.data);
+    if (data == newData)
+        return;
+    data = newData;
+    abortController.abort();
+    abortController = new AbortController();
+    const signal = abortController.signal;
+    while (!signal.aborted) {
+        await displayContent(data, signal);
+    }
+}
 
-connectWebSocket(() => {})
+connectWebSocket(processEvent);

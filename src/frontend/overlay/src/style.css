@@ -1,18 +1,17 @@
 body, html {
+  font-family: Helvetica, serif;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-#content {
+.content {
   display: block;
   width: 100vw;
   height: 100vh;
   border: none;
-  opacity: 0;
-  transition: opacity 1s;
 }
 
-img {
+.fullscreen-img {
   object-fit: contain;
 }

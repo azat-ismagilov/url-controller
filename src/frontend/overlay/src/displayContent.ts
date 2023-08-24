@@ -55,14 +55,17 @@ async function displayText(content: Content.Text, abortSignal: AbortSignal) {
     await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
 }
 
-async function displayImage(content: Content.Image, abortSignal: AbortSignal) {
+async function displaySingleImage(url: string, durationSeconds: number | null | undefined, abortSignal: AbortSignal) {
     if (abortSignal.aborted)
         return;
     app.innerHTML = `
-        <img class="content fullscreen-img" src="${content.url}" alt="Image"/>
+        <img class="content fullscreen-img" src="${url}" alt="Image"/>
     `;
 
-    await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
+    await delay(durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
+}
+async function displayImage(content: Content.Image, abortSignal: AbortSignal) {
+    await displaySingleImage(content.url, content.durationSeconds, abortSignal);
 }
 
 async function displayImageFolder(content: Content.ImageFolder, abortSignal: AbortSignal) {
@@ -70,10 +73,7 @@ async function displayImageFolder(content: Content.ImageFolder, abortSignal: Abo
     for (const image of images) {
         if (abortSignal.aborted)
             return;
-        app.innerHTML = `
-            <img class="content fullscreen-img" src="${image}" alt="Image"/>
-        `;
-        await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
+        await displaySingleImage(image, content.durationSeconds, abortSignal);
     }
 }
 
@@ -98,7 +98,7 @@ async function displaySmartSVG(content: Content.SmartSVG, abortSignal: AbortSign
     await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
 }
 
-async function displayVideoBySrc(src: object, abortSignal: AbortSignal) {
+async function displaySingleVideo(src: object, abortSignal: AbortSignal) {
     const videoElement = document.createElement("video");
     videoElement.className = "content video-js";
 
@@ -129,15 +129,15 @@ async function displayVideoBySrc(src: object, abortSignal: AbortSignal) {
 }
 
 async function displayVideo(content: Content.Video, abortSignal: AbortSignal) {
-    await displayVideoBySrc({src: content.url}, abortSignal);
+    await displaySingleVideo({src: content.url}, abortSignal);
 }
 
 async function displayVideoFolder(content: Content.VideoFolder, abortSignal: AbortSignal) {
-    const videos = await listDirectory(content.path, abortSignal);
+    const videos = await listDirectory(content.url, abortSignal);
     for (const video of videos) {
         if (abortSignal.aborted)
             return;
-        await displayVideoBySrc({src: video}, abortSignal);
+        await displaySingleVideo({src: video}, abortSignal);
     }
 }
 
