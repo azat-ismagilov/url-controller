@@ -1,0 +1,105 @@
+[
+    {
+        "id": "0f804e48-fbe8-4d44-bc63-0b5ae059e709",
+        "name": "icpc.global",
+        "content": {
+            "type": "IFrame",
+            "url": "https://icpc.global"
+        }
+    },
+    {
+        "id": "08a420cd-a32f-42e6-827f-604e7b3c36aa",
+        "name": "Image",
+        "content": {
+            "type": "Image",
+            "url": "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Facmgnyr.org%2F2019ICPCGNYlogo.png&f=1&nofb=1&ipt=c158abfd87168b1a43d0fee7b1c90cbbc2d807db28cddfc1db02210d51472c97&ipo=images"
+        }
+    },
+    {
+        "id": "d0c1dbef-024d-404a-a53a-3d5eb0262ec7",
+        "name": "Text",
+        "content": {
+            "type": "Text",
+            "text": "I love ICPC!"
+        }
+    },
+    {
+        "id": "42b5249c-cf45-47c2-aab8-48b1ee2c252b",
+        "name": "Long text",
+        "content": {
+            "type": "Text",
+            "text": "Hello, everyone! I love ICPC! I love ICPC! I love ICPC! I love ICPC! I love ICPC! I love ICPC! I love ICPC!"
+        }
+    },
+    {
+        "id": "89a2a07d-3908-4091-a2eb-cb991d684ca2",
+        "name": "MP4 Video",
+        "content": {
+            "type": "Video",
+            "url": "https://woolyss.com/f/caminandes-2-gran-dillama-x65-aac.mp4"
+        }
+    },
+    {
+        "id": "0867fb42-9a82-4529-8a41-33fe786ac43c",
+        "name": "SmartSVG",
+        "content": {
+            "type": "SmartSVG",
+            "url": "https://raw.githubusercontent.com/icpc/live-v3/main/config/icpc-wf/2021/finals/media/animation-dynamic-left.svg",
+            "substitutions": [
+                {
+                    "from": "name",
+                    "to": "Azat"
+                },
+                {
+                    "from": "role",
+                    "to": "ICPC Live"
+                }
+            ]
+        }
+    },
+    {
+        "id": "f1e5a818-ea6d-4e4e-83d9-8149b92aa7a4",
+        "name": "VideoFolder",
+        "content": {
+            "type": "VideoFolder",
+            "url": "/media/video"
+        }
+    },
+    {
+        "id": "2c6977f3-3d06-4d59-8c34-ea28d5f80cff",
+        "name": "Image Folder",
+        "content": {
+            "type": "ImageFolder",
+            "url": "/media/images",
+            "durationSeconds": 5
+        }
+    },
+    {
+        "id": "5dba9ac7-b1cc-4853-abc4-a538651ed90e",
+        "name": "Sequence of content",
+        "content": {
+            "type": "Sequence",
+            "sequence": [
+                {
+                    "type": "ImageFolder",
+                    "url": "/media/images",
+                    "durationSeconds": 3
+                },
+                {
+                    "type": "IFrame",
+                    "url": "https://icpc.global",
+                    "durationSeconds": 3
+                },
+                {
+                    "type": "IFrame",
+                    "url": "https://www.youtube.com/embed/15Wyj_-PG9I?t=3580&autoplay=1&mute=1",
+                    "durationSeconds": 10
+                },
+                {
+                    "type": "VideoFolder",
+                    "url": "/media/video"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,9 @@
+[
+    {
+        "id": "96717ccc-751b-45cc-bf8f-bfc9f6ccac44",
+        "name": "Main",
+        "clientIds": [
+            "default/main"
+        ]
+    }
+]
