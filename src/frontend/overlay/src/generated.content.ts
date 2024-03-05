@@ -29,6 +29,7 @@ export namespace Content {
     type: Content.Type.IFrame;
     url: string;
     durationSeconds?: number | null;
+    preloadBannerTimeSeconds?: number | null;
   }
   
   export interface Image {
@@ -91,6 +92,7 @@ export namespace SimpleContent {
     type: SimpleContent.Type.IFrame;
     url: string;
     durationSeconds?: number | null;
+    preloadBannerTimeSeconds?: number | null;
   }
   
   export interface Image {
