@@ -11,6 +11,7 @@ const app = document.querySelector<HTMLDivElement>("#app")!;
 const intermission = document.querySelector<HTMLDivElement>("#intermission")!;
 
 const DEFAULT_DURATION_SECONDS = 100000;
+const DEFAULT_PRELOAD_BANNER_SECONDS = 1;
 
 function delay(seconds: number, abortSignal: AbortSignal) {
     return new Promise((resolve, reject) => {
@@ -39,9 +40,7 @@ async function displayIFrame(content: Content.IFrame, abortSignal: AbortSignal) 
     setTimeout(() => {
         intermission.style.opacity = "0";
         app.style.opacity = "1";
-    }, 5000);
-    // Make this timeout part of Content.IFrame configuration
-
+    }, (content.preloadBannerTimeSeconds || DEFAULT_PRELOAD_BANNER_SECONDS) * 1000);
     await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
 }
 

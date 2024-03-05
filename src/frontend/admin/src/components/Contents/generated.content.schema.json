@@ -19,6 +19,9 @@
                 },
                 "durationSeconds": {
                     "$ref": "#/$defs/kotlin.Int?"
+                },
+                "preloadBannerTimeSeconds": {
+                    "$ref": "#/$defs/kotlin.Int?"
                 }
             },
             "additionalProperties": false,
