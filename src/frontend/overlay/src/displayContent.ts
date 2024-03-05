@@ -8,6 +8,7 @@ import listDirectory from "./listDirectory.ts";
 import "video.js/dist/video-js.min.css";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
+const intermission = document.querySelector<HTMLDivElement>("#intermission")!;
 
 const DEFAULT_DURATION_SECONDS = 100000;
 
@@ -18,10 +19,10 @@ function delay(seconds: number, abortSignal: AbortSignal) {
             return;
         }
         const timeout = setTimeout(resolve, seconds * 1000);
-        abortSignal.addEventListener( 'abort', () => {
+        abortSignal.addEventListener('abort', () => {
             clearTimeout(timeout);
             reject();
-        } );
+        });
     });
 }
 
@@ -32,7 +33,14 @@ function displayNothing() {
 async function displayIFrame(content: Content.IFrame, abortSignal: AbortSignal) {
     if (abortSignal.aborted)
         return;
+    intermission.style.opacity = "1";
+    app.style.opacity = "0";
     app.innerHTML = `<iframe class="content iframe" src="${content.url}" />`;
+    setTimeout(() => {
+        intermission.style.opacity = "0";
+        app.style.opacity = "1";
+    }, 5000);
+    // Make this timeout part of Content.IFrame configuration
 
     await delay(content.durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
 }
@@ -64,6 +72,7 @@ async function displaySingleImage(url: string, durationSeconds: number | null | 
 
     await delay(durationSeconds || DEFAULT_DURATION_SECONDS, abortSignal);
 }
+
 async function displayImage(content: Content.Image, abortSignal: AbortSignal) {
     await displaySingleImage(content.url, content.durationSeconds, abortSignal);
 }
