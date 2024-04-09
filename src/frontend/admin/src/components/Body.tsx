@@ -32,7 +32,7 @@ const Body = () => {
     };
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="xl">
             <Grid container p={4} columnSpacing={5} rowSpacing={2} >
                 <Grid item xs={12}>
                     <Typography variant="h4">
