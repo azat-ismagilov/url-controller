@@ -36,7 +36,7 @@ async function displayIFrame(content: Content.IFrame, abortSignal: AbortSignal) 
         return;
     intermission.style.opacity = "1";
     app.style.opacity = "0";
-    app.innerHTML = `<iframe class="content iframe" src="${content.url}" />`;
+    app.innerHTML = `<iframe class="content iframe" src="${content.url}" allow="autoplay" />`;
     setTimeout(() => {
         intermission.style.opacity = "0";
         app.style.opacity = "1";
