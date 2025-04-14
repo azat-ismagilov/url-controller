@@ -3,6 +3,7 @@ package org.icpclive
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
@@ -49,26 +50,20 @@ private fun Application.setupKtorPlugins() {
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
-//    install(Authentication) {
-//        if (config.authDisabled) {
-//            val config = object : AuthenticationProvider.Config("admin-api-auth") {}
-//            register(object : AuthenticationProvider(config) {
-//                override suspend fun onAuthenticate(context: AuthenticationContext) {
-//                    context.principal(Controllers.userController.validateAdminApiCredits("", "")!!)
-//                }
-//            })
-//        } else {
-//            basic("admin-api-auth") {
-//                realm = "Access to the '/api/admin' path"
-//                validate { credentials ->
-//                    Controllers.userController.validateAdminApiCredits(
-//                        credentials.name,
-//                        credentials.password
-//                    )
-//                }
-//            }
-//        }
-//    }
+    install(Authentication) {
+        if (config.authEnabled) {
+            basic("admin-auth") {
+                realm = "Access to the '/api/admin' path"
+                validate { credentials ->
+                    if (credentials.name == config.authUsername && credentials.password == config.authPassword) {
+                        UserIdPrincipal(credentials.name)
+                    } else {
+                        null
+                    }
+                }
+            }
+        }
+    }
     install(CORS) {
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
@@ -92,7 +87,8 @@ fun Application.module() {
         route("/media") {
             val dir = File("media")
             get("{${pathParameterName}...}") {
-                val relativePath = call.parameters.getAll(pathParameterName)?.joinToString(File.separator) ?: return@get
+                val relativePath =
+                    call.parameters.getAll(pathParameterName)?.joinToString(File.separator) ?: return@get
                 val file = dir.combineSafe(relativePath)
                 if (file.isDirectory) {
                     call.respond(file.listFiles()?.map { "/${file.path}/${it.name}" } ?: emptyList())
@@ -110,7 +106,13 @@ fun Application.module() {
         }
         route("/api") {
             route("/overlay") { configureOverlayRouting() }
-            route("/admin") { configureAdminRouting() }
+            if (config.authEnabled) {
+                authenticate("admin-auth") {
+                    route("/admin") { configureAdminRouting() }
+                }
+            } else {
+                route("/admin") { configureAdminRouting() }
+            }
         }
     }
 }

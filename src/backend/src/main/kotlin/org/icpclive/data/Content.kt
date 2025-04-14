@@ -17,7 +17,8 @@ sealed class SimpleContent : Content()
 
 @Serializable
 @SerialName("IFrame")
-data class IFrame(val url: String, val durationSeconds: Int? = null) : SimpleContent()
+data class IFrame(val url: String, val durationSeconds: Int? = null, val preloadBannerTimeSeconds: Int? = null) :
+    SimpleContent()
 
 @Serializable
 @SerialName("Image")
@@ -41,7 +42,8 @@ data class Text(val text: String, val durationSeconds: Int? = null) : SimpleCont
 
 @Serializable
 @SerialName("SmartSVG")
-data class SmartSVG(val url: String, val substitutions: List<Substitution>, val durationSeconds: Int? = null) : SimpleContent()
+data class SmartSVG(val url: String, val substitutions: List<Substitution>, val durationSeconds: Int? = null) :
+    SimpleContent()
 
 @Serializable
 @SerialName("Sequence")
