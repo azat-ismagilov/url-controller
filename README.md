@@ -1,5 +1,7 @@
 # url-controller
 
+```java -jar url-controller.jar -port=8080```
+
 How to use:
 1) Download and deploy jar from releases.
 2) Go to /. You can add parameters for group and name, for example /?group=default&name=main
