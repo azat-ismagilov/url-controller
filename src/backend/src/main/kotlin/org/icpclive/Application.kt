@@ -92,11 +92,11 @@ fun Application.module() {
                 val file = dir.combineSafe(relativePath)
                 if (file.isDirectory) {
                     call.respond(file.listFiles()?.map { "/${file.path}/${it.name}" } ?: emptyList())
-                }
-                if (file.isFile) {
+                } else if (file.isFile) {
                     call.respondFile(file)
+                } else {
+                    call.respond(HttpStatusCode.NotFound)
                 }
-                call.respond(HttpStatusCode.NotFound)
             }
         }
         singlePageApplication {
